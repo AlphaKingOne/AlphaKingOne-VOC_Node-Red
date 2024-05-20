@@ -1,0 +1,1858 @@
+[
+    {
+        "id": "74c5494dc47e0504",
+        "type": "tab",
+        "label": "Volvo",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ec795502.8d07a8",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 3260,
+        "y": 180,
+        "wires": [
+            [
+                "ec62dad1becd3dad"
+            ]
+        ]
+    },
+    {
+        "id": "a2d20a40.9b78a8",
+        "type": "http request",
+        "z": "74c5494dc47e0504",
+        "name": "LOCK",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://vocapi.wirelesscar.net/customerapi/rest/v3.0/vehicles/XXXXXXXXXXXXXXXXX/lock ",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "basic",
+        "senderr": false,
+        "x": 3630,
+        "y": 180,
+        "wires": [
+            [
+                "b99241d3.c5cf4"
+            ]
+        ]
+    },
+    {
+        "id": "b99241d3.c5cf4",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 3830,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "76dc44cd.49e28c",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "unlock",
+        "payloadType": "str",
+        "x": 3390,
+        "y": 240,
+        "wires": [
+            [
+                "6f35b0a869e54c17"
+            ]
+        ]
+    },
+    {
+        "id": "ccd34668.4d6f88",
+        "type": "http request",
+        "z": "74c5494dc47e0504",
+        "name": "Volvo",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://vocapi.wirelesscar.net/customerapi/rest/v3.0/vehicles/XXXXXXXXXXXXXXXXX/{{post}}",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "basic",
+        "senderr": false,
+        "x": 4050,
+        "y": 280,
+        "wires": [
+            [
+                "af7b116707fc9503"
+            ]
+        ]
+    },
+    {
+        "id": "41747a17.54ffd4",
+        "type": "http request",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://vocapi.wirelesscar.net/customerapi/rest/v3.0/vehicles/XXXXXXXXXXXXXXXXX/{{post}}",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "basic",
+        "senderr": false,
+        "x": 3930,
+        "y": 100,
+        "wires": [
+            [
+                "a696ee740318bb45"
+            ]
+        ]
+    },
+    {
+        "id": "d682318c.36823",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 4250,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "e67a0cc.596d4f",
+        "type": "change",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "post",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3700,
+        "y": 100,
+        "wires": [
+            [
+                "41747a17.54ffd4"
+            ]
+        ]
+    },
+    {
+        "id": "5f78cbe91e01071a",
+        "type": "function",
+        "z": "74c5494dc47e0504",
+        "name": "Web Kopfzeile",
+        "func": "msg.headers = {};\nmsg.headers['cache-control'] = 'no-cache';\nmsg.headers['content-type'] = ' application/json';\nmsg.headers['x-device-id'] = 'Device';\nmsg.headers['x-originator-type'] = 'App';\nmsg.headers['x-os-type'] = 'Android';\nmsg.headers['x-os-version'] = 22;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3440,
+        "y": 100,
+        "wires": [
+            [
+                "e67a0cc.596d4f"
+            ]
+        ],
+        "icon": "node-red/white-globe.svg"
+    },
+    {
+        "id": "18e0c158bb7b6fa5",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "status",
+        "payloadType": "str",
+        "x": 3250,
+        "y": 100,
+        "wires": [
+            [
+                "5f78cbe91e01071a"
+            ]
+        ]
+    },
+    {
+        "id": "a696ee740318bb45",
+        "type": "json",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 4070,
+        "y": 100,
+        "wires": [
+            [
+                "d682318c.36823"
+            ]
+        ]
+    },
+    {
+        "id": "efd66a08dcbf9585",
+        "type": "http request",
+        "z": "74c5494dc47e0504",
+        "name": "Volvo MQTT",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://vocapi.wirelesscar.net/customerapi/rest/v3.0/vehicles/XXXXXXXXXXXXXXXXX/{{post}}",
+        "tls": "",
+        "persist": true,
+        "proxy": "",
+        "authType": "basic",
+        "senderr": false,
+        "x": 550,
+        "y": 340,
+        "wires": [
+            [
+                "fd5b6acea147fa5d",
+                "9a59c6d95ac449b6"
+            ]
+        ],
+        "icon": "font-awesome/fa-car"
+    },
+    {
+        "id": "fd5b6acea147fa5d",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "14d1e729a1d45e72",
+        "type": "function",
+        "z": "74c5494dc47e0504",
+        "name": "Web Kopfzeile",
+        "func": "msg.headers = {};\nmsg.headers['cache-control'] = 'no-cache';\nmsg.headers['content-type'] = ' application/json';\nmsg.headers['x-device-id'] = 'Device';\nmsg.headers['x-originator-type'] = 'App';\nmsg.headers['x-os-type'] = 'Android';\nmsg.headers['x-os-version'] = 22;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 100,
+        "wires": [
+            [
+                "5692657356ce48a8"
+            ]
+        ],
+        "icon": "node-red/white-globe.svg"
+    },
+    {
+        "id": "963ec41f17c9f7da",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "9a59c6d95ac449b6",
+        "type": "json",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 770,
+        "y": 360,
+        "wires": [
+            [
+                "0a7809352402b5d6"
+            ]
+        ]
+    },
+    {
+        "id": "cb9f5fd621094d04",
+        "type": "http request",
+        "z": "74c5494dc47e0504",
+        "name": "Volvo Geo",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://vocapi.wirelesscar.net/customerapi/rest/v3.0/vehicles/XXXXXXXXXXXXXXXXX/position ",
+        "tls": "",
+        "persist": true,
+        "proxy": "",
+        "authType": "basic",
+        "senderr": false,
+        "x": 550,
+        "y": 380,
+        "wires": [
+            [
+                "c1d19e99d72c5dc0",
+                "9a59c6d95ac449b6"
+            ]
+        ],
+        "icon": "font-awesome/fa-car"
+    },
+    {
+        "id": "c1d19e99d72c5dc0",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "0a7809352402b5d6",
+        "type": "function",
+        "z": "74c5494dc47e0504",
+        "name": "console",
+        "func": "console.log(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 360,
+        "wires": [
+            [
+                "963ec41f17c9f7da",
+                "81eddf8f95485cdf",
+                "aeb31f22e986fa79"
+            ]
+        ],
+        "icon": "font-awesome/fa-bug"
+    },
+    {
+        "id": "81eddf8f95485cdf",
+        "type": "link out",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "bb23aa543e0c08ae"
+        ],
+        "x": 1045,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "5692657356ce48a8",
+        "type": "link out",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "77dded7b11fdf1b6"
+        ],
+        "x": 735,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "77dded7b11fdf1b6",
+        "type": "link in",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "links": [
+            "5692657356ce48a8"
+        ],
+        "x": 105,
+        "y": 380,
+        "wires": [
+            [
+                "cb9f5fd621094d04",
+                "589fea9492281722"
+            ]
+        ]
+    },
+    {
+        "id": "589fea9492281722",
+        "type": "change",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "post",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 240,
+        "y": 340,
+        "wires": [
+            [
+                "efd66a08dcbf9585"
+            ]
+        ]
+    },
+    {
+        "id": "041277587c37ee68",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "attributes",
+        "payloadType": "str",
+        "x": 200,
+        "y": 40,
+        "wires": [
+            [
+                "14d1e729a1d45e72"
+            ]
+        ]
+    },
+    {
+        "id": "61f9731778627a25",
+        "type": "mqtt in",
+        "z": "74c5494dc47e0504",
+        "d": true,
+        "name": "",
+        "topic": "/SmartHome/Volvo/Volvo_Status",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "8dbb55e797368e83",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 100,
+        "wires": [
+            [
+                "14d1e729a1d45e72"
+            ]
+        ]
+    },
+    {
+        "id": "aeb31f22e986fa79",
+        "type": "mqtt out",
+        "z": "74c5494dc47e0504",
+        "d": true,
+        "name": "",
+        "topic": "/Service/fhem/cmnd",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "8dbb55e797368e83",
+        "x": 1120,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "bb23aa543e0c08ae",
+        "type": "link in",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "links": [
+            "81eddf8f95485cdf"
+        ],
+        "x": 95,
+        "y": 440,
+        "wires": [
+            [
+                "357fa314818eba0f"
+            ]
+        ]
+    },
+    {
+        "id": "b9fb0798351b1207",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "f674fa37c3aad2fa",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "e467a2b0baab3b7a",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "bf2ae5cc75259dcb",
+        "type": "function",
+        "z": "74c5494dc47e0504",
+        "name": "aufteilen Telemetrie",
+        "func": "// aufteilen der Eingangsnachricht\nmsgVerbrauchD              =       { payload: msg.payload.averageFuelConsumption};\nmsgGeschwindigkeitD        =       { payload: msg.payload.averageSpeed};\nmsgFuellstand              =       { payload: msg.payload.fuelAmount };\nmsgFuellstandP             =       { payload: msg.payload.fuelAmountLevel };\nmsgODO                     =       { payload: msg.payload.odometer };\nmsgTrip1                   =       { payload: msg.payload.tripMeter1 };\nmsgTrip2                   =       { payload: msg.payload.tripMeter2 };\nmsgfrontLeftTyrePressure   =       { payload: msg.payload.tyrePressure.frontLeftTyrePressure };\nmsgRightTyrePressure       =       { payload: msg.payload.tyrePressure.frontRightTyrePressure };\nmsgrearLeftTyrePressure    =       { payload: msg.payload.tyrePressure.rearLeftTyrePressure };\nmsgrearRightTyrePressur    =       { payload: msg.payload.tyrePressure.rearRightTyrePressure };\nmsgWischwasser             =       { payload: msg.payload.washerFluidLevelTimestamp };\nmsgrpcStatus               =       { payload: msg.payload.remotePreCleaning.rpcStatus };\nmsgrpcWarning              =       { payload: msg.payload.remotePreCleaning.rpcWarning };\nmsgrpcWarningType          =       { payload: msg.payload.remotePreCleaning.rpcWarningType };\nmsgrpcLastCycleCompleted   =       { payload: msg.payload.rpcLastCycleCompleted };\nmsgserviceWarningStatus    =       { payload: msg.payload.serviceWarningStatus };\nmsgHeizung                 =       { payload: msg.payload.heater.status };\nmsgSFL                     =       { payload: msg.payload.heater.seatSelection.frontDriverSide };\nmsgSFR                     =       { payload: msg.payload.heater.seatSelection.frontPassengerSide };\nmsgSHL                     =       { payload: msg.payload.heater.seatSelection.rearDriverSide };\nmsgSHR                     =       { payload: msg.payload.heater.seatSelection.rearPassengerSide};\nmsgSHM                     =       { payload: msg.payload.heater.seatSelection.rearMid};\nmsgMotor                   =       { payload: msg.payload.engineRunning };\n\nreturn [msgVerbrauchD, msgGeschwindigkeitD, msgVerbrauchD, msgFuellstand, msgFuellstandP, msgODO, msgTrip1, msgTrip2, msgfrontLeftTyrePressure, msgRightTyrePressure, msgrearLeftTyrePressure, msgrearRightTyrePressur, msgWischwasser, msgrpcStatus, msgrpcWarning, msgrpcWarningType, msgrpcLastCycleCompleted, msgserviceWarningStatus, msgHeizung, msgSFL, msgSFR, msgSHL, msgSHR, msgSHM, msgMotor];",
+        "outputs": 25,
+        "noerr": 24,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 700,
+        "wires": [
+            [
+                "b9fb0798351b1207"
+            ],
+            [
+                "e467a2b0baab3b7a"
+            ],
+            [
+                "f674fa37c3aad2fa"
+            ],
+            [
+                "a8b888b1f27cf5ec"
+            ],
+            [
+                "2063ba3b177504af"
+            ],
+            [],
+            [
+                "cf2af4de1ef79d86"
+            ],
+            [
+                "f2564b1dc25be392"
+            ],
+            [
+                "a39c79a25e244bf5"
+            ],
+            [
+                "23b7de56edcbcf9c"
+            ],
+            [
+                "353adfc4ede6449f"
+            ],
+            [
+                "fc8735fb6af174a1"
+            ],
+            [
+                "09dc4299933123bc"
+            ],
+            [
+                "82c0db1f6b4c027a"
+            ],
+            [
+                "c23a3d682a6f2e16"
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a8b888b1f27cf5ec",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "cf2af4de1ef79d86",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "2063ba3b177504af",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "a7232f28d5a593d6",
+        "type": "function",
+        "z": "74c5494dc47e0504",
+        "name": "aufteilen GEO",
+        "func": "// aufteilen der Eingangsnachricht\nmsgLeange = { payload: msg.payload.position.longitude };\nmsgBreite = { payload: msg.payload.position.latitude };\n\nreturn [msgLeange, msgBreite,];",
+        "outputs": 2,
+        "noerr": 2,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 420,
+        "wires": [
+            [
+                "9726540ce2f943eb"
+            ],
+            [
+                "ed5cf58682d9bbd1"
+            ]
+        ]
+    },
+    {
+        "id": "9726540ce2f943eb",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "ed5cf58682d9bbd1",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "357fa314818eba0f",
+        "type": "switch",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "property": "",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "payload.position",
+                "vt": "msg"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 130,
+        "y": 560,
+        "wires": [
+            [
+                "a7232f28d5a593d6"
+            ],
+            [
+                "bf2ae5cc75259dcb",
+                "bdb94817a32a41f5"
+            ]
+        ]
+    },
+    {
+        "id": "23b7de56edcbcf9c",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "fc8735fb6af174a1",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "353adfc4ede6449f",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "09dc4299933123bc",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "c23a3d682a6f2e16",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "82c0db1f6b4c027a",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "f2564b1dc25be392",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "a39c79a25e244bf5",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "bdb94817a32a41f5",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 230,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "cfbdec6d6cb81f22",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "status",
+        "payloadType": "str",
+        "x": 390,
+        "y": 40,
+        "wires": [
+            [
+                "14d1e729a1d45e72"
+            ]
+        ]
+    },
+    {
+        "id": "11c2bd334d4c7f40",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[]",
+        "payloadType": "str",
+        "x": 3270,
+        "y": 460,
+        "wires": [
+            [
+                "066bf8d7f40a9c7d"
+            ]
+        ]
+    },
+    {
+        "id": "066bf8d7f40a9c7d",
+        "type": "function",
+        "z": "74c5494dc47e0504",
+        "name": "Web Kopfzeile",
+        "func": "msg.headers = {};\nmsg.headers['cache-control'] = 'no-cache';\nmsg.headers['content-type'] = ' application/json';\nmsg.headers['x-device-id'] = 'Device';\nmsg.headers['x-originator-type'] = 'App';\nmsg.headers['x-os-type'] = 'Android';\nmsg.headers['x-os-version'] = 22;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3460,
+        "y": 480,
+        "wires": [
+            [
+                "c5ac5838b804ae33"
+            ]
+        ],
+        "icon": "node-red/white-globe.svg"
+    },
+    {
+        "id": "5d6bb6bff6221ec0",
+        "type": "change",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "post",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3440,
+        "y": 540,
+        "wires": [
+            [
+                "c5ac5838b804ae33"
+            ]
+        ]
+    },
+    {
+        "id": "c5ac5838b804ae33",
+        "type": "http request",
+        "z": "74c5494dc47e0504",
+        "name": "Volvo Heizung",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://vocapi.wirelesscar.net/customerapi/rest/v3.0/vehicles/XXXXXXXXXXXXXXXXX/honk_blink/horn",
+        "tls": "",
+        "persist": true,
+        "proxy": "",
+        "authType": "basic",
+        "senderr": false,
+        "x": 3740,
+        "y": 520,
+        "wires": [
+            [
+                "4a591556f971fbb5"
+            ]
+        ],
+        "icon": "font-awesome/fa-car"
+    },
+    {
+        "id": "4a591556f971fbb5",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3970,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "f9d90b2622c44f3e",
+        "type": "http request",
+        "z": "74c5494dc47e0504",
+        "name": "Volvo Heizung",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://vocapi-na.wirelesscar.net/customerapi/rest/v3.0/customeraccounts \\",
+        "tls": "",
+        "persist": true,
+        "proxy": "",
+        "authType": "basic",
+        "senderr": false,
+        "x": 3780,
+        "y": 700,
+        "wires": [
+            [
+                "55469e3f4fe10f74"
+            ]
+        ],
+        "icon": "font-awesome/fa-car"
+    },
+    {
+        "id": "55469e3f4fe10f74",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3990,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "4b1c0417f1493293",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[]",
+        "payloadType": "str",
+        "x": 3410,
+        "y": 700,
+        "wires": [
+            [
+                "04f1ceddb284077c"
+            ]
+        ]
+    },
+    {
+        "id": "04f1ceddb284077c",
+        "type": "function",
+        "z": "74c5494dc47e0504",
+        "name": "Web Kopfzeile",
+        "func": "msg.headers = {};\nmsg.headers['cache-control'] = 'no-cache';\nmsg.headers['content-type'] = ' application/json';\nmsg.headers['x-device-id'] = 'Device';\nmsg.headers['x-originator-type'] = 'App';\nmsg.headers['x-os-type'] = 'Android';\nmsg.headers['x-os-version'] = 22;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3560,
+        "y": 700,
+        "wires": [
+            [
+                "f9d90b2622c44f3e"
+            ]
+        ],
+        "icon": "node-red/white-globe.svg"
+    },
+    {
+        "id": "b3e64937433a97b8",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "lock",
+        "payloadType": "str",
+        "x": 3390,
+        "y": 280,
+        "wires": [
+            [
+                "6f35b0a869e54c17"
+            ]
+        ]
+    },
+    {
+        "id": "83e26702242ac893",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "honkAndBlink",
+        "payloadType": "str",
+        "x": 3370,
+        "y": 320,
+        "wires": [
+            [
+                "6f35b0a869e54c17"
+            ]
+        ]
+    },
+    {
+        "id": "d80dcc8bf588d015",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "heater/start",
+        "payloadType": "str",
+        "x": 3390,
+        "y": 360,
+        "wires": [
+            [
+                "6f35b0a869e54c17"
+            ]
+        ]
+    },
+    {
+        "id": "e7fc3a5bf9e6266c",
+        "type": "http request",
+        "z": "74c5494dc47e0504",
+        "name": "Volvo",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://vocapi.wirelesscar.net/customerapi/rest/v3.0/vehicles/XXXXXXXXXXXXXXXXX/heater/start",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "basic",
+        "senderr": false,
+        "x": 4050,
+        "y": 340,
+        "wires": [
+            [
+                "af7b116707fc9503"
+            ]
+        ]
+    },
+    {
+        "id": "077b81c4bb6a28f0",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[]",
+        "payloadType": "str",
+        "x": 3610,
+        "y": 340,
+        "wires": [
+            [
+                "46264cf32a2dee97"
+            ]
+        ]
+    },
+    {
+        "id": "e85d9abdaf5d95ed",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "OK",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 4410,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "976823cdedadb210",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "services",
+        "payloadType": "str",
+        "x": 240,
+        "y": 140,
+        "wires": [
+            [
+                "14d1e729a1d45e72"
+            ]
+        ]
+    },
+    {
+        "id": "af7b116707fc9503",
+        "type": "switch",
+        "z": "74c5494dc47e0504",
+        "name": "Prüfen",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "Error",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "errorLabel",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 4210,
+        "y": 300,
+        "wires": [
+            [
+                "e607d77ea6b85ebe"
+            ],
+            [
+                "e607d77ea6b85ebe"
+            ],
+            [
+                "e85d9abdaf5d95ed"
+            ]
+        ]
+    },
+    {
+        "id": "e607d77ea6b85ebe",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "Fehler",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 4410,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "57318f42f7662c54",
+        "type": "function",
+        "z": "74c5494dc47e0504",
+        "name": "Web Kopfzeile",
+        "func": "msg.headers = {};\nmsg.headers['cache-control'] = 'no-cache';\nmsg.headers['content-type'] = ' application/json';\nmsg.headers['x-device-id'] = 'Device';\nmsg.headers['x-originator-type'] = 'App';\nmsg.headers['x-os-type'] = 'Android';\nmsg.headers['x-os-version'] = 22;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3820,
+        "y": 280,
+        "wires": [
+            [
+                "ccd34668.4d6f88"
+            ]
+        ],
+        "icon": "node-red/white-globe.svg"
+    },
+    {
+        "id": "46264cf32a2dee97",
+        "type": "function",
+        "z": "74c5494dc47e0504",
+        "name": "Web Kopfzeile",
+        "func": "msg.headers = {};\nmsg.headers['cache-control'] = 'no-cache';\nmsg.headers['content-type'] = ' application/json';\nmsg.headers['x-device-id'] = 'Device';\nmsg.headers['x-originator-type'] = 'App';\nmsg.headers['x-os-type'] = 'Android';\nmsg.headers['x-os-version'] = 22;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3820,
+        "y": 340,
+        "wires": [
+            [
+                "e7fc3a5bf9e6266c"
+            ]
+        ],
+        "icon": "node-red/white-globe.svg"
+    },
+    {
+        "id": "ec62dad1becd3dad",
+        "type": "function",
+        "z": "74c5494dc47e0504",
+        "name": "Web Kopfzeile",
+        "func": "msg.headers = {};\nmsg.headers['cache-control'] = 'no-cache';\nmsg.headers['content-type'] = ' application/json';\nmsg.headers['x-device-id'] = 'Device';\nmsg.headers['x-originator-type'] = 'App';\nmsg.headers['x-os-type'] = 'Android';\nmsg.headers['x-os-version'] = 22;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3440,
+        "y": 180,
+        "wires": [
+            [
+                "a2d20a40.9b78a8"
+            ]
+        ],
+        "icon": "node-red/white-globe.svg"
+    },
+    {
+        "id": "6f35b0a869e54c17",
+        "type": "change",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "post",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 3620,
+        "y": 280,
+        "wires": [
+            [
+                "57318f42f7662c54",
+                "bb097655f5673c42"
+            ]
+        ]
+    },
+    {
+        "id": "afd97dbdd09547f3",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "unlock",
+        "payloadType": "str",
+        "x": 1770,
+        "y": 60,
+        "wires": [
+            [
+                "e4c2d04e62d69ff3"
+            ]
+        ]
+    },
+    {
+        "id": "f8c2a85ba24a6e36",
+        "type": "http request",
+        "z": "74c5494dc47e0504",
+        "name": "Volvo",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "basic",
+        "senderr": false,
+        "x": 2610,
+        "y": 140,
+        "wires": [
+            [
+                "f69886d0d10b35e1"
+            ]
+        ]
+    },
+    {
+        "id": "24999920a971bf7f",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "lock",
+        "payloadType": "str",
+        "x": 1770,
+        "y": 100,
+        "wires": [
+            [
+                "e4c2d04e62d69ff3"
+            ]
+        ]
+    },
+    {
+        "id": "2183978e7c7ba2fb",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "honkAndBlink",
+        "payloadType": "str",
+        "x": 1750,
+        "y": 140,
+        "wires": [
+            [
+                "e4c2d04e62d69ff3"
+            ]
+        ]
+    },
+    {
+        "id": "9fd774bb9b4b2f9e",
+        "type": "inject",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "heater/start",
+        "payloadType": "str",
+        "x": 1770,
+        "y": 180,
+        "wires": [
+            [
+                "e4c2d04e62d69ff3"
+            ]
+        ]
+    },
+    {
+        "id": "0a86cbf8ee1a2094",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "OK",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2970,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "f69886d0d10b35e1",
+        "type": "switch",
+        "z": "74c5494dc47e0504",
+        "name": "Prüfen",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "Error",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "errorLabel",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 2770,
+        "y": 160,
+        "wires": [
+            [
+                "b6fdb5909276d1a6"
+            ],
+            [
+                "b6fdb5909276d1a6"
+            ],
+            [
+                "0a86cbf8ee1a2094"
+            ]
+        ]
+    },
+    {
+        "id": "b6fdb5909276d1a6",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "Fehler",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2970,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "b8680c73acfba6cb",
+        "type": "function",
+        "z": "74c5494dc47e0504",
+        "name": "Web Kopfzeile",
+        "func": "msg.headers = {};\nmsg.headers['cache-control'] = 'no-cache';\nmsg.headers['content-type'] = ' application/json';\nmsg.headers['x-device-id'] = 'Device';\nmsg.headers['x-originator-type'] = 'App';\nmsg.headers['x-os-type'] = 'Android';\nmsg.headers['x-os-version'] = 22;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2460,
+        "y": 140,
+        "wires": [
+            [
+                "f8c2a85ba24a6e36",
+                "d19f2e9ee72e4f4d"
+            ]
+        ],
+        "icon": "node-red/white-globe.svg"
+    },
+    {
+        "id": "8337a3fcaf69a1c8",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2410,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "362e980f8b9ea8ec",
+        "type": "change",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "url",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2230,
+        "y": 100,
+        "wires": [
+            [
+                "b8680c73acfba6cb",
+                "8337a3fcaf69a1c8"
+            ]
+        ]
+    },
+    {
+        "id": "e4c2d04e62d69ff3",
+        "type": "function",
+        "z": "74c5494dc47e0504",
+        "name": "URL Zusammensetzen",
+        "func": "msg.payload = \"https://vocapi.wirelesscar.net/customerapi/rest/v3.0/vehicles/XXXXXXXXXXXXXXXXX/\" + msg.payload\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2020,
+        "y": 100,
+        "wires": [
+            [
+                "362e980f8b9ea8ec"
+            ]
+        ]
+    },
+    {
+        "id": "d19f2e9ee72e4f4d",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2630,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "bb097655f5673c42",
+        "type": "debug",
+        "z": "74c5494dc47e0504",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3790,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "8dbb55e797368e83",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "3",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]
+
